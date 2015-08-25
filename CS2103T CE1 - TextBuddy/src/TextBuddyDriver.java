@@ -29,6 +29,8 @@ public class TextBuddyDriver {
 	static Scanner commandScanner = new Scanner(System.in);
 	static FileReader fileReader;
 	static BufferedReader textReader;
+	static String emptyMessageDone = " is empty";
+	static String clearMessageDone = "all content deleted from ";
 
 	public void bootUp(String filename) throws IOException {
 		fileInitializer(filename);
@@ -69,7 +71,7 @@ public class TextBuddyDriver {
 			numberOfLines++;
 		}
 		if (numberOfLines == 0) {
-			System.out.println(filename + " is empty");
+			System.out.println(filename + emptyMessageDone);
 		}
 		textReader.close();
 		fileReader.close();
@@ -80,10 +82,10 @@ public class TextBuddyDriver {
 		textReader = new BufferedReader(fileReader);
 		int numberOfLinesToBeCopied = 0;
 		String line;
-		List<String> bufferList = new ArrayList<String>();// Used to store all
-															// the inputs from
-															// the file to be
-		// transferred to a new file without having the line to be deleted
+		List<String> bufferList = new ArrayList<String>();
+		/** Used to store all the inputs from the file to be 
+		 * transferred to a new file without having the line to be deleted
+		 */
 		String messageToBeDeleted = "";
 		while ((line = textReader.readLine()) != null) {
 			if (!line.substring(0, 1).equals(commandInput.substring(1))) {
@@ -102,32 +104,24 @@ public class TextBuddyDriver {
 		}
 		newFileWritter.flush();
 		newFileWritter.close();
-		System.out.println("deleted from " + filename + ": \"" + messageToBeDeleted + "\"");
+		String deleteCommandExecutionMessage = "deleted from " + filename + ": \"" + messageToBeDeleted + "\"";
+		System.out.println(deleteCommandExecutionMessage);
 	}
 
 	private static void clearCommandExecution() throws IOException {
 		newFile = new FileWriter(filename);
 		lineCounter = 1;
-		System.out.println("all content deleted from " + filename);
+		System.out.println(clearMessageDone + filename);
 	}
 
 	private static void addCommandExecution(String textInput) throws IOException {
-		String toBePrinted = lineCounter + "." + textInput; // to add the
-															// numbering in
-															// front of the text
+		String toBePrinted = lineCounter + "." + textInput; 
+		/**to add the numbering in front of the text */ 
 		fileWriter.write(toBePrinted + "\n");
 		fileWriter.flush();
 		lineCounter++;
-		System.out.println("added to " + filename + " : " + "\"" + textInput.substring(1) + "\""); // to
-																									// remove
-																									// the
-																									// empty
-																									// space
-																									// before
-																									// the
-																									// textInput
-		return;
-
+		/**to remove the empty space before the textInput */
+		System.out.println("added to " + filename + " : " + "\"" + textInput.substring(1) + "\""); 
 	}
 
 	private static void printWelcomeMessage(String filename) {

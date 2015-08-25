@@ -1,8 +1,8 @@
-
 /**
  * This class is used as the driver function for the TextBuddy
  * Implemented all the 5 operations which is to add, display, 
  * delete, clear and exit
+ * @author Khairul Rizqi Bin Mohd Shariff
  */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,20 +15,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextBuddyDriver {
-	final static String WELCOME_MESSAGE_PART_1 = "Welcome to TextBuddy. ";
-	final static String WELCOME_MESSAGE_PART_2 = " is ready for use";
+	private final static String WELCOME_MESSAGE_PART_1 = "Welcome to TextBuddy. ";
+	private final static String WELCOME_MESSAGE_PART_2 = " is ready for use";
 	private final static String ADD_COMMAND = "add";
 	private final static String DISPLAY_COMMAND = "display";
 	private final static String DELETE_COMMAND = "delete";
 	private final static String CLEAR_COMMAND = "clear";
 	private final static String EXIT_COMMAND = "exit";
-	private static String FILENAME;
+	private static String filename;
 	static int lineCounter = 1;
 	static FileWriter newFile;
 	static BufferedWriter fileWriter;
 	static Scanner commandScanner = new Scanner(System.in);
 	static FileReader fileReader;
 	static BufferedReader textReader;
+	static String emptyMessageDone = " is empty";
+	static String clearMessageDone = "all content deleted from ";
 
 	public void bootUp(String filename) throws IOException {
 		fileInitializer(filename);
@@ -60,7 +62,7 @@ public class TextBuddyDriver {
 	}
 
 	private static void displayCommandExecution() throws IOException {
-		fileReader = new FileReader(FILENAME);
+		fileReader = new FileReader(filename);
 		textReader = new BufferedReader(fileReader);
 		String line;
 		int numberOfLines = 0;
@@ -69,21 +71,21 @@ public class TextBuddyDriver {
 			numberOfLines++;
 		}
 		if (numberOfLines == 0) {
-			System.out.println(FILENAME + " is empty");
+			System.out.println(filename + emptyMessageDone);
 		}
 		textReader.close();
 		fileReader.close();
 	}
 
 	private static void deleteCommandExecution(String commandInput) throws IOException {
-		fileReader = new FileReader(FILENAME);
+		fileReader = new FileReader(filename);
 		textReader = new BufferedReader(fileReader);
 		int numberOfLinesToBeCopied = 0;
 		String line;
-		List<String> bufferList = new ArrayList<String>();// Used to store all
-															// the inputs from
-															// the file to be
-		// transferred to a new file without having the line to be deleted
+		List<String> bufferList = new ArrayList<String>();
+		/** Used to store all the inputs from the file to be 
+		 * transferred to a new file without having the line to be deleted
+		 */
 		String messageToBeDeleted = "";
 		while ((line = textReader.readLine()) != null) {
 			if (!line.substring(0, 1).equals(commandInput.substring(1))) {
@@ -94,7 +96,7 @@ public class TextBuddyDriver {
 			}
 		}
 		lineCounter = 1;
-		FileWriter afterDeleteFile = new FileWriter(FILENAME);
+		FileWriter afterDeleteFile = new FileWriter(filename);
 		BufferedWriter newFileWritter = new BufferedWriter(afterDeleteFile);
 		for (int i = 0; i < numberOfLinesToBeCopied; i++) {
 			newFileWritter.write(lineCounter + ". " + bufferList.get(i) + "\n");
@@ -102,32 +104,23 @@ public class TextBuddyDriver {
 		}
 		newFileWritter.flush();
 		newFileWritter.close();
-		System.out.println("deleted from " + FILENAME + ": \"" + messageToBeDeleted + "\"");
+		System.out.println("deleted from " + filename + ": \"" + messageToBeDeleted + "\"");
 	}
 
 	private static void clearCommandExecution() throws IOException {
-		newFile = new FileWriter(FILENAME);
+		newFile = new FileWriter(filename);
 		lineCounter = 1;
-		System.out.println("all content deleted from " + FILENAME);
+		System.out.println(clearMessageDone + filename);
 	}
 
 	private static void addCommandExecution(String textInput) throws IOException {
-		String toBePrinted = lineCounter + "." + textInput; // to add the
-															// numbering in
-															// front of the text
+		String toBePrinted = lineCounter + "." + textInput; 
+		/**to add the numbering in front of the text */ 
 		fileWriter.write(toBePrinted + "\n");
 		fileWriter.flush();
 		lineCounter++;
-		System.out.println("added to " + FILENAME + " : " + "\"" + textInput.substring(1) + "\""); // to
-																									// remove
-																									// the
-																									// empty
-																									// space
-																									// before
-																									// the
-																									// textInput
-		return;
-
+		/**to remove the empty space before the textInput */
+		System.out.println("added to " + filename + " : " + "\"" + textInput.substring(1) + "\""); 
 	}
 
 	private static void printWelcomeMessage(String filename) {
@@ -136,9 +129,9 @@ public class TextBuddyDriver {
 		return;
 	}
 
-	private static void fileInitializer(String filename) throws IOException {
-		FILENAME = filename;
-		newFile = new FileWriter(new File(FILENAME), true);
+	private static void fileInitializer(String file) throws IOException {
+		filename = file;
+		newFile = new FileWriter(new File(filename), true);
 		fileWriter = new BufferedWriter(newFile);
 		return;
 	}
