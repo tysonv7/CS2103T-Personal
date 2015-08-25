@@ -1,0 +1,12 @@
+add Ayase
+add love
+add me
+display
+clear
+add Ayase
+add love
+add me
+delete 2
+display
+clear
+exit
