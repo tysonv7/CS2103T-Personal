@@ -219,12 +219,12 @@ public class CityConnect {
 			String newEndLocation) {
 		for (int i = 0; i < route.length; i++) {
 
-			String existing_start_location = route[i][STORAGE_POSITION_START_LOCATION];
+			String existingStartLocation = route[i][STORAGE_POSITION_START_LOCATION];
 			String existing_end_location = route[i][STORAGE_POSITION_END_LOCATION];
 
-			if (existing_start_location == null) { //beginning of empty slots
+			if (existingStartLocation == null) { //beginning of empty slots
 				return NOT_FOUND; 
-			} else if (sameRoute(existing_start_location, existing_end_location,
+			} else if (sameRoute(existingStartLocation, existing_end_location,
 					newStartLocation, newEndLocation)) { 
 				return i;
 			}
