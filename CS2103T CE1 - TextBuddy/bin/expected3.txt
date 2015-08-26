@@ -1,0 +1,24 @@
+Welcome to TextBuddy. finalSherryTest.txt is ready for use
+added to finalSherryTest.txt: "Sherry "
+added to finalSherryTest.txt: "is"
+added to finalSherryTest.txt: "cute"
+added to finalSherryTest.txt: "and"
+added to finalSherryTest.txt: "tsun"
+1. Sherry 
+2. is
+3. cute
+4. and
+5. tsun
+deleted from finalSherryTest.txt: "and"
+deleted from finalSherryTest.txt: "tsun"
+1. Sherry 
+2. is
+3. cute
+all content deleted from finalSherryTest.txt
+finalSherryTest.txt is empty
+added to finalSherryTest.txt: "Sherry"
+added to finalSherryTest.txt: "uses"
+added to finalSherryTest.txt: "moe moe attack"
+1. Sherry
+2. uses
+3. moe moe attack

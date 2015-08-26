@@ -15,13 +15,16 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextBuddyDriver {
-	private final static String WELCOME_MESSAGE_PART_1 = "Welcome to TextBuddy. ";
-	private final static String WELCOME_MESSAGE_PART_2 = " is ready for use";
+	private final static String WELCOME_MESSAGE = "Welcome to TextBuddy. %1$s is ready for use";
 	private final static String ADD_COMMAND = "add";
 	private final static String DISPLAY_COMMAND = "display";
 	private final static String DELETE_COMMAND = "delete";
 	private final static String CLEAR_COMMAND = "clear";
 	private final static String EXIT_COMMAND = "exit";
+	private final static String EMPTY_COMMAND_DONE = " is empty";
+	private final static String CLEAR_COMMAND_DONE = "all content deleted from ";
+	private final static String DELETE_COMMAND_DONE = "deleted from %1$s: \"%2$s\"";
+	private final static String ADD_COMMAND_DONE = "added to %1$s: \"%2$s\"";
 	private static String filename;
 	static int lineCounter = 1;
 	static FileWriter newFile;
@@ -29,8 +32,7 @@ public class TextBuddyDriver {
 	static Scanner commandScanner = new Scanner(System.in);
 	static FileReader fileReader;
 	static BufferedReader textReader;
-	static String emptyMessageDone = " is empty";
-	static String clearMessageDone = "all content deleted from ";
+	
 
 	public void bootUp(String filename) throws IOException {
 		fileInitializer(filename);
@@ -71,7 +73,7 @@ public class TextBuddyDriver {
 			numberOfLines++;
 		}
 		if (numberOfLines == 0) {
-			System.out.println(filename + emptyMessageDone);
+			System.out.println(filename + EMPTY_COMMAND_DONE);
 		}
 		textReader.close();
 		fileReader.close();
@@ -104,14 +106,13 @@ public class TextBuddyDriver {
 		}
 		newFileWritter.flush();
 		newFileWritter.close();
-		String deleteCommandExecutionMessage = "deleted from " + filename + ": \"" + messageToBeDeleted + "\"";
-		System.out.println(deleteCommandExecutionMessage);
+		System.out.println(String.format(DELETE_COMMAND_DONE, filename, messageToBeDeleted));
 	}
 
 	private static void clearCommandExecution() throws IOException {
 		newFile = new FileWriter(filename);
 		lineCounter = 1;
-		System.out.println(clearMessageDone + filename);
+		System.out.println(CLEAR_COMMAND_DONE + filename);
 	}
 
 	private static void addCommandExecution(String textInput) throws IOException {
@@ -121,19 +122,16 @@ public class TextBuddyDriver {
 		fileWriter.flush();
 		lineCounter++;
 		/**to remove the empty space before the textInput */
-		System.out.println("added to " + filename + " : " + "\"" + textInput.substring(1) + "\""); 
+		System.out.println(String.format(ADD_COMMAND_DONE, filename,textInput.substring(1))); 
 	}
 
 	private static void printWelcomeMessage(String filename) {
-		String printWelcomeMessage = WELCOME_MESSAGE_PART_1 + filename + WELCOME_MESSAGE_PART_2;
-		System.out.println(printWelcomeMessage);
-		return;
+		System.out.println(String.format(WELCOME_MESSAGE, filename));
 	}
 
 	private static void fileInitializer(String file) throws IOException {
 		filename = file;
 		newFile = new FileWriter(new File(filename), true);
 		fileWriter = new BufferedWriter(newFile);
-		return;
 	}
 }

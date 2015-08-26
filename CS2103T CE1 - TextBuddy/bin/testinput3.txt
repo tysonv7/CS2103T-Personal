@@ -1,0 +1,16 @@
+add Sherry 
+add is
+add cute
+add and
+add tsun
+display
+delete 4
+delete 4
+display
+clear
+display
+add Sherry
+add uses
+add moe moe attack
+display
+exit
