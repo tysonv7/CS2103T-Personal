@@ -54,7 +54,7 @@ public class CityConnect {
 	// These are the possible command types
 	enum COMMAND_TYPE {
 		ADD_ROUTE, GET_DISTANCE, INVALID, EXIT
-	};
+	}
 
 	// This is used to indicate there is no suitable slot to store route
 	private static final int SLOT_UNAVAILABLE = -1;
