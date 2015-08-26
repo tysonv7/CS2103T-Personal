@@ -259,7 +259,7 @@ public class CityConnect {
 
 		int slotPosition = location(newStartLocation, newEndLocation);
 
-		if (slotPosition == SLOT_UNAVAILABLE){
+		if (slotPosition == SLOT_UNAVAILABLE) {
 			return MESSAGE_NO_SPACE;
 		}
 
