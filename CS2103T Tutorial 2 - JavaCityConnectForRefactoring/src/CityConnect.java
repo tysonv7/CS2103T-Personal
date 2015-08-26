@@ -307,7 +307,7 @@ public class CityConnect {
 			String endLocation1, String startLocation2, String endLocation2) {
 
 		if ((startLocation1 == null) || (endLocation1 == null)
-				&& (startLocation2 == null) || (endLocation2 == null)){
+				&& (startLocation2 == null) || (endLocation2 == null)) {
 			throw new Error("Route end points cannot be null");
 		}
 
